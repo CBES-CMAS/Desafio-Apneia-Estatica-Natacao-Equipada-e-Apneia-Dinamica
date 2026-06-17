@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desafio Apneia Estática</title>
+
+<style>
+
+body{
+    margin:0;
+    background:#cdeff5;
+    font-family:Arial, sans-serif;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    border-radius:10px;
+    padding:25px;
+    margin-bottom:20px;
+}
+
+h1{
+    margin-top:0;
+}
+
+input, select{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border:none;
+    border-bottom:1px solid #ccc;
+    font-size:16px;
+}
+
+button{
+    background:#0097a7;
+    color:white;
+    border:none;
+    padding:15px 25px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.banner{
+    width:100%;
+    border-radius:10px;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<div class="card">
+    <h1>Desafio Apneia Estática, Natação Equipada e Apneia Dinâmica</h1>
+    <p>CIOPESP e Corpo de Bombeiros</p>
+</div>
+
+<div class="card">
+    <img src="banner.jpg" class="banner">
+</div>
+
+<div class="card">
+    <label>Nome Completo</label>
+    <input type="text">
+</div>
+
+<div class="card">
+    <label>Data de Nascimento</label>
+    <input type="date">
+</div>
+
+<div class="card">
+    <label>Identidade</label>
+    <input type="text">
+</div>
+
+<div class="card">
+    <label>Organização</label><br><br>
+
+    <input type="checkbox"> CIOPESP<br><br>
+    <input type="checkbox"> Corpo de Bombeiros
+</div>
+
+<div class="card">
+    <label>QR Code CMAS</label><br><br>
+    <input type="file">
+</div>
+
+<div class="card">
+    <label>Prova Escolhida</label><br><br>
+
+    <input type="checkbox"> Apneia Estática<br><br>
+    <input type="checkbox"> Apneia Dinâmica<br><br>
+    <input type="checkbox"> Natação Equipada
+</div>
+
+<button>Enviar</button>
+
+</div>
+
+</body>
+</html>
