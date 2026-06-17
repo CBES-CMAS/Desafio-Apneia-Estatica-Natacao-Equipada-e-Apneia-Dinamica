@@ -19,18 +19,12 @@ body{
     background:#d7edf4;
 }
 
-/* ==========================
-   CABEÇALHO
-========================== */
-
 .topo{
     background:linear-gradient(180deg,#02263b,#001827);
     border-bottom:4px solid #00c8ff;
-
     display:flex;
     justify-content:space-between;
     align-items:center;
-
     padding:20px 40px;
 }
 
@@ -48,19 +42,11 @@ body{
     height:110px;
 }
 
-/* ==========================
-   CONTAINER
-========================== */
-
 .container{
     max-width:1300px;
     margin:auto;
     padding:30px;
 }
-
-/* ==========================
-   CARDS
-========================== */
 
 .card{
     background:white;
@@ -70,19 +56,11 @@ body{
     box-shadow:0 3px 10px rgba(0,0,0,.08);
 }
 
-/* ==========================
-   BANNER
-========================== */
-
 .banner{
     width:100%;
     display:block;
     border-radius:20px;
 }
-
-/* ==========================
-   FORMULÁRIO
-========================== */
 
 .form-grid{
     display:grid;
@@ -135,9 +113,10 @@ body{
     background:#005fa5;
 }
 
-/* ==========================
-   RESPONSIVO
-========================== */
+.status{
+    margin-top:15px;
+    font-weight:bold;
+}
 
 @media(max-width:900px){
 
@@ -197,25 +176,25 @@ body{
 
             <div class="campo full">
                 <label>Nome Completo <span class="obrigatorio">*</span></label>
-                <input type="text">
+                <input type="text" id="nome">
             </div>
 
             <div class="campo">
                 <label>Data de Nascimento <span class="obrigatorio">*</span></label>
-                <input type="date">
+                <input type="date" id="nascimento">
             </div>
 
             <div class="campo">
                 <label>Identidade <span class="obrigatorio">*</span></label>
-                <input type="text">
+                <input type="text" id="identidade">
             </div>
 
             <div class="campo">
                 <label>Organização <span class="obrigatorio">*</span></label>
 
                 <div class="check-group">
-                    <label><input type="checkbox"> CIOPESP</label>
-                    <label><input type="checkbox"> Corpo de Bombeiros</label>
+                    <label><input type="radio" name="organizacao" value="CIOPESP"> CIOPESP</label>
+                    <label><input type="radio" name="organizacao" value="Corpo de Bombeiros"> Corpo de Bombeiros</label>
                 </div>
             </div>
 
@@ -223,9 +202,9 @@ body{
                 <label>Prova Escolhida <span class="obrigatorio">*</span></label>
 
                 <div class="check-group">
-                    <label><input type="checkbox"> Apneia Estática</label>
-                    <label><input type="checkbox"> Apneia Dinâmica</label>
-                    <label><input type="checkbox"> Natação Equipada</label>
+                    <label><input type="checkbox" name="prova" value="Apneia Estática"> Apneia Estática</label>
+                    <label><input type="checkbox" name="prova" value="Apneia Dinâmica"> Apneia Dinâmica</label>
+                    <label><input type="checkbox" name="prova" value="Natação Equipada"> Natação Equipada</label>
                 </div>
             </div>
 
@@ -247,13 +226,71 @@ body{
 
         <br>
 
-        <button class="botao">
+        <button type="button" class="botao" onclick="enviarFormulario()">
             Enviar Inscrição
         </button>
+
+        <div id="status" class="status"></div>
 
     </div>
 
 </div>
+
+<script>
+
+function enviarFormulario(){
+
+    const status = document.getElementById("status");
+
+    const dados = {
+
+        nome: document.getElementById("nome").value,
+
+        nascimento: document.getElementById("nascimento").value,
+
+        identidade: document.getElementById("identidade").value,
+
+        organizacao:
+            document.querySelector('input[name="organizacao"]:checked')?.value || "",
+
+        prova:
+            Array.from(
+                document.querySelectorAll('input[name="prova"]:checked')
+            )
+            .map(item => item.value)
+            .join(", ")
+
+    };
+
+    status.innerHTML = "Enviando inscrição...";
+
+    fetch(
+        "https://script.google.com/macros/s/AKfycbz6mhNXV8NYACMpw5kFz8OURwAQ4-TPsIxB5A9j6PFYb2OCH85CcN3leOGDlCWuvCwnKw/exec",
+        {
+            method:"POST",
+            body:JSON.stringify(dados)
+        }
+    )
+
+    .then(response => response.text())
+
+    .then(() => {
+
+        status.innerHTML = "✅ Inscrição enviada com sucesso!";
+
+    })
+
+    .catch(error => {
+
+        status.innerHTML = "❌ Erro ao enviar inscrição.";
+
+        console.error(error);
+
+    });
+
+}
+
+</script>
 
 </body>
 </html>
